@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travis Fickett</title>
+<meta name="description" content="Travis Fickett — writer for TV, film, comics, and audio drama. Castlevania, 12 Monkeys, Star Trek: Picard.">
+
+<!-- Fonts: Fraunces (display serif, does the heavy lifting) + Source Sans 3 (workhorse sans for nav/body/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* ============================================================
+     DESIGN TOKENS — change colors/fonts here, nowhere else, and
+     the whole site updates.
+     ============================================================ */
+  :root {
+    --ink:        #15130F;   /* page background — near-black, warm */
+    --ink-raised: #1D1A15;   /* slightly lighter panels/cards */
+    --paper:      #EDE6D6;   /* primary text — warm parchment */
+    --muted:      #8B8272;   /* secondary text, captions, meta */
+    --lamp:       #D9A544;   /* amber accent — links, highlights */
+    --rust:       #6B3232;   /* sparing deep accent — dividers only */
+    --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+    --sans:  'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --measure: 640px; /* comfortable line-length for body text */
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: var(--lamp);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217, 165, 68, 0.35);
+    transition: border-color 0.15s ease;
+  }
+  a:hover, a:focus-visible {
+    border-color: var(--lamp);
+  }
+  a:focus-visible {
+    outline: 2px solid var(--lamp);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Header / nav ---------- */
+  header {
+    padding: 28px 0 20px;
+  }
+  header .wrap {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+  }
+  .wordmark {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 20px;
+    color: var(--paper);
+    border-bottom: none;
+    letter-spacing: 0.01em;
+  }
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    font-size: 14.5px;
+  }
+  nav a {
+    color: var(--muted);
+    border-bottom: 1px solid transparent;
+  }
+  nav a:hover, nav a:focus-visible {
+    color: var(--lamp);
+    border-color: var(--lamp);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    margin: 4px 0 0;
+  }
+  .hero-image {
+    width: 100%;
+    height: min(52vh, 460px);
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.92) contrast(1.03);
+  }
+  /* subtle vignette so the image sits inside the dark palette rather than fighting it */
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(21,19,15,0) 55%, rgba(21,19,15,0.95) 100%),
+                linear-gradient(90deg, rgba(21,19,15,0.25) 0%, rgba(21,19,15,0) 30%);
+    pointer-events: none;
+  }
+  .avatar-link {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    z-index: 2;
+    border-bottom: none;
+  }
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--ink);
+    box-shadow: 0 0 0 1px rgba(217,165,68,0.5);
+    display: block;
+    transition: box-shadow 0.15s ease;
+  }
+  .avatar-link:hover .avatar, .avatar-link:focus-visible .avatar {
+    box-shadow: 0 0 0 2px var(--lamp);
+  }
+
+  /* ---------- Sections ---------- */
+  main {
+    padding-top: 44px;
+  }
+  section {
+    padding: 40px 0;
+    border-top: 1px solid rgba(139, 130, 114, 0.18);
+  }
+  section:first-of-type {
+    border-top: none;
+    padding-top: 8px;
+  }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 10px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 4.4vw, 38px);
+    line-height: 1.25;
+    margin: 0 0 18px;
+    max-width: var(--measure);
+    color: var(--paper);
+  }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    margin: 0 0 20px;
+    color: var(--paper);
+  }
+
+  .intro {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--paper);
+    max-width: var(--measure);
+  }
+
+  p {
+    max-width: var(--measure);
+  }
+  p.dim {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* simple plain lists — no cards, no borders-as-decoration */
+  ul.plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-width: var(--measure);
+  }
+  ul.plain li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(139, 130, 114, 0.14);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  ul.plain li:last-child { border-bottom: none; }
+  ul.plain .label {
+    font-weight: 600;
+    color: var(--paper);
+  }
+  ul.plain .detail {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* Links list — the "add one when I feel like it" section */
+  .updates li {
+    display: block;
+    padding: 14px 0;
+  }
+  .updates time {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .updates .title {
+    font-family: var(--serif);
+    font-size: 18px;
+  }
+
+  /* Contact */
+  form {
+    max-width: var(--measure);
+    margin-top: 8px;
+  }
+  label {
+    display: block;
+    font-size: 14px;
+    color: var(--muted);
+    margin: 16px 0 6px;
+  }
+  input, textarea {
+    width: 100%;
+    background: var(--ink-raised);
+    border: 1px solid rgba(139, 130, 114, 0.3);
+    color: var(--paper);
+    font-family: var(--sans);
+    font-size: 15px;
+    padding: 10px 12px;
+    border-radius: 3px;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--lamp);
+  }
+  button {
+    margin-top: 20px;
+    background: var(--lamp);
+    color: var(--ink);
+    border: none;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 15px;
+    padding: 11px 22px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  button:hover { background: #E5B564; }
+
+  .elsewhere {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 22px;
+    font-size: 15px;
+  }
+
+  footer {
+    padding: 32px 0 60px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--lamp); }
+
+  @media (max-width: 560px) {
+    nav { gap: 12px 16px; font-size: 14px; }
+    .hero-image { height: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="wordmark">Travis Fickett</span>
+    <nav>
+      <a href="#work">What I Do</a>
+      <a href="#credits">Credits</a>
+      <a href="#services">Services</a>
+      <a href="#links">Links</a>
+      <a href="#bio">Bio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============================================================
+     EDIT ME: HERO IMAGE — replace hero.jpg with your own photo
+     (same filename, or update the src= below). Something with a
+     bit of atmosphere works better here than a straight headshot.
+     ============================================================ -->
+<div class="hero">
+  <img class="hero-image" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop" alt="">
+  <!-- EDIT ME: PROFILE PIC — replace with your headshot, keep it square -->
+  <a class="avatar-link" href="#bio" aria-label="Read my bio">
+    <img class="avatar" src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200&auto=format&fit=crop" alt="Travis Fickett">
+  </a>
+</div>
+
+<main class="wrap">
+
+  <section>
+    <p class="intro">Writer for television, film, comics, and audio drama. Twenty-five years of telling stories in rooms, on pages, and now out loud &mdash; showrunner of <em>12 Monkeys</em>, writer of <em>Castlevania</em>, and a few other things you can find below.</p>
+  </section>
+
+  <section id="work">
+    <p class="eyebrow">What I Do</p>
+    <h2>Four ways I tell a story</h2>
+    <ul class="plain">
+      <li><span class="label">Writing for TV &amp; Film</span></li>
+      <li><span class="label">Comic Books</span></li>
+      <li><span class="label">Audio Drama</span></li>
+      <li><span class="label">Fiction</span></li>
+    </ul>
+  </section>
+
+  <section id="credits">
+    <p class="eyebrow">Credits</p>
+    <h2>Selected work</h2>
+    <!-- EDIT ME: CREDITS — add/remove <li> rows as needed, same format -->
+    <ul class="plain">
+      <li><span class="label">Castlevania</span><span class="detail">Netflix &mdash; Writer</span></li>
+      <li><span class="label">12 Monkeys</span><span class="detail">Syfy &mdash; Co-Creator / Showrunner</span></li>
+      <li><span class="label">Star Trek: Picard</span><span class="detail">Paramount+ &mdash; Writer</span></li>
+      <li><span class="label">Magic: The Gathering</span><span class="detail">Netflix &mdash; Writer</span></li>
+      <li><span class="label">MacGyver</span><span class="detail">CBS &mdash; Writer</span></li>
+    </ul>
+  </section>
+
+  <section id="services">
+    <p class="eyebrow">Services</p>
+    <h2>Ways to work with me</h2>
+    <!-- EDIT ME: SERVICES — reword or add lines any time -->
+    <ul class="plain">
+      <li><span class="label">Consulting</span><span class="detail">Story, structure, room process</span></li>
+      <li><span class="label">Development</span><span class="detail">Series bibles, pilots, pitch decks</span></li>
+      <li><span class="label">Ghostwriting</span></li>
+      <li><span class="label">Teaching</span><span class="detail">Workshops, courses, one-on-one</span></li>
+      <li><span class="label">Speaking</span><span class="detail">Panels, keynotes, craft talks</span></li>
+    </ul>
+  </section>
+
+  <section id="links">
+    <p class="eyebrow">Links</p>
+    <h2>Things I've put out lately</h2>
+    <p class="dim">Not a blog &mdash; just a running list. Longer stuff lives on the newsletter.</p>
+    <!-- ============================================================
+         EDIT ME: THIS IS THE SECTION YOU'LL TOUCH MOST.
+         To add something new, copy one whole <li>...</li> block
+         and paste it right above this comment, then change the
+         date, title, description, and href. Newest goes on top.
+         ============================================================ -->
+    <ul class="plain updates">
+      <li>
+        <time>September 2026</time>
+        <a class="title" href="#">A short essay on War of the Worlds &rarr;</a>
+      </li>
+      <li>
+        <time>August 2026</time>
+        <a class="title" href="#">New short fiction, published in Voyage &rarr;</a>
+      </li>
+    </ul>
+  </section>
+
+  <section id="bio">
+    <p class="eyebrow">Bio</p>
+    <h2>Longer version</h2>
+    <!-- EDIT ME: BIO — replace this paragraph with your real bio -->
+    <p>Travis Fickett is a writer and showrunner with twenty-five years of experience across television, film, comics, and audio drama. He co-created and showran <em>12 Monkeys</em> for Syfy, and has written for <em>Castlevania</em>, <em>Star Trek: Picard</em>, <em>Magic: The Gathering</em>, and <em>MacGyver</em>. He operates through his production company, Elliesam, Inc., and is represented by CAA and Industry Entertainment.</p>
+  </section>
+
+  <section id="contact">
+    <p class="eyebrow">Contact</p>
+    <h2>Get in touch</h2>
+    <p class="dim">For consulting, development, speaking, or just to say hello.</p>
+
+    <!-- ============================================================
+         This form posts to Formspree (free tier, no backend needed).
+         Sign up at formspree.io, create a form, and replace
+         YOUR_FORM_ID below with the ID they give you. Until you do
+         that, this form won't actually send anywhere.
+         ============================================================ -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" required>
+
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+
+      <button type="submit">Send</button>
+    </form>
+
+    <!-- EDIT ME: SOCIAL LINKS — add/remove as you actually use them -->
+    <div class="elsewhere">
+      <a href="#">LinkedIn</a>
+      <a href="#">Bluesky</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>&copy; 2026 Travis Fickett</p>
+  </div>
+</footer>
+
+</body>
+</html>
