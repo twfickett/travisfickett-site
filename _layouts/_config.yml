@@ -1,8 +1,0 @@
-title: Travis Fickett
-description: Writer for TV, film, comics, and audio drama.
-
-# Makes new pages build as /page-name/ instead of /page-name.html
-permalink: pretty
-
-# index.html is a finished static file — tell Jekyll to leave it alone
-markdown: kramdown
