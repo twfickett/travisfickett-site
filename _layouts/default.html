@@ -37,6 +37,24 @@
   footer { padding: 60px 0 60px; color: var(--muted); font-size: 13px; }
   footer a { color: var(--muted); }
   .back-link { display: inline-block; margin-top: 48px; font-size: 15px; }
+
+  /* ---------- What Colleagues Say ---------- */
+  .testimonials-intro { color: var(--muted); }
+  .testimonials { max-width: var(--measure); margin-top: 32px; }
+  .testimonial { border-left: 2px solid rgba(217,165,68,0.35); margin: 0 0 22px; padding: 6px 0 6px 22px; transition: border-color .2s; }
+  .testimonial:hover, .testimonial[open] { border-color: var(--lamp); }
+  .testimonial summary { list-style: none; cursor: pointer; }
+  .testimonial summary::-webkit-details-marker { display: none; }
+  .testimonial .pull { display: block; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.5; color: var(--paper); }
+  .testimonial .who { display: inline-block; margin-top: 6px; font-size: 14px; color: var(--muted); letter-spacing: .02em; }
+  .testimonial .who::before { content: "\2014\00a0"; }
+  .testimonial .who::after { content: "\00a0\00a0 Read more \2192"; color: var(--lamp); font-size: 13px; }
+  .testimonial[open] .who::after { content: "\00a0\00a0 Close \2191"; }
+  .testimonial summary:focus-visible { outline: 1px dashed var(--lamp); outline-offset: 4px; }
+  .testimonial .full { margin-top: 14px; animation: fadein .35s ease; }
+  .testimonial .full p { margin: 0 0 14px; }
+  .testimonial .credits { font-size: 14px; color: var(--muted); }
+  @keyframes fadein { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
@@ -50,6 +68,7 @@
       <a href="/#services">Services</a>
       <!-- <a href="/#links">Links</a> -->
       <a href="/#bio">Bio</a>
+      <a href="/colleagues/">Colleagues</a>
       <a href="/#contact">Contact</a>
     </nav>
   </div>

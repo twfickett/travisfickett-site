@@ -1,0 +1,22 @@
+---
+layout: default
+title: What Colleagues Say
+eyebrow: Kind Words
+description: What writers, showrunners, and collaborators say about working with Travis Fickett.
+---
+<p class="testimonials-intro">A few words from people I've written with, worked for, and made things alongside. Click any quote to read the whole thing.</p>
+
+<div class="testimonials">
+{% for t in site.data.testimonials %}
+  <details class="testimonial">
+    <summary>
+      <span class="pull">&ldquo;{{ t.pull }}&rdquo;</span>
+      <span class="who">{{ t.name }}</span>
+    </summary>
+    <div class="full">
+      {{ t.full | markdownify }}
+      {% if t.credits %}<p class="credits">{{ t.name }} &middot; {{ t.credits }}</p>{% endif %}
+    </div>
+  </details>
+{% endfor %}
+</div>
