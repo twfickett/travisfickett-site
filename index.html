@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Travis Fickett</title>
-<meta name="description" content="Travis Fickett — writer for TV, film, comics, and audio drama. Castlevania, 12 Monkeys, Star Trek: Picard.">
+<meta name="description" content="Travis Fickett — writer for TV, film, and comics. Magic: The Gathering, 12 Monkeys, Star Trek: Picard.">
 
 <!-- Fonts: Fraunces (display serif, does the heavy lifting) + Source Sans 3 (workhorse sans for nav/body/UI) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,6 +111,18 @@
     display: block;
     filter: saturate(0.92) contrast(1.03);
   }
+  /* Lamp-light glow in place of a photo: warm pool of light fading into ink */
+  .hero-glow {
+    height: min(40vh, 360px);
+    background:
+      radial-gradient(ellipse 22% 38% at 24% 58%, rgba(255,214,140,0.42) 0%, rgba(240,180,80,0.16) 50%, rgba(217,165,68,0) 100%),
+      radial-gradient(ellipse 48% 75% at 26% 60%, rgba(217,165,68,0.30) 0%, rgba(217,165,68,0.08) 55%, rgba(217,165,68,0) 100%),
+      radial-gradient(ellipse 90% 110% at 30% 65%, rgba(160,105,40,0.22) 0%, rgba(160,105,40,0) 70%),
+      linear-gradient(180deg, #100D09 0%, #17140F 100%);
+    animation: lampflicker 9s ease-in-out infinite;
+  }
+  @keyframes lampflicker { 0%,100% { filter: brightness(1); } 47% { filter: brightness(1.04); } 52% { filter: brightness(0.97); } }
+  @media (prefers-reduced-motion: reduce) { .hero-glow { animation: none; } }
   /* subtle vignette so the image sits inside the dark palette rather than fighting it */
   .hero::after {
     content: "";
@@ -220,6 +232,8 @@
     font-size: 15px;
   }
 
+  .services-note { margin: 18px 0 0; max-width: var(--measure); color: var(--muted); font-size: 15px; }
+
   /* Links list — the "add one when I feel like it" section */
   .updates li {
     display: block;
@@ -294,6 +308,7 @@
   @media (max-width: 560px) {
     nav { gap: 12px 16px; font-size: 14px; }
     .hero-image { height: 300px; }
+    .hero-glow { height: 220px; }
   }
 </style>
 </head>
@@ -307,20 +322,19 @@
       <a href="/credits/">Credits</a>
       <a href="/services/">Services</a>
       <a href="/bio/">Bio</a>
-      <a href="/#links">Links</a>
-      <a href="/articles/">Articles</a>
+      <a href="/colleagues/">Testimonials</a>
+      <!-- <a href="/#links">Links</a> -->
+      <!-- <a href="/articles/">Articles</a> -->
       <a href="/#contact">Contact</a>
     </nav>
   </div>
 </header>
 
-<!-- ============================================================
-     EDIT ME: HERO IMAGE — replace hero.jpg with your own photo
-     (same filename, or update the src= below). Something with a
-     bit of atmosphere works better here than a straight headshot.
-     ============================================================ -->
+<!-- HERO: a lamp-light glow drawn in CSS (see .hero-glow above).
+     To use a photo instead, swap the <div class="hero-image hero-glow">
+     for <img class="hero-image" src="/images/your-photo.jpg" alt=""> -->
 <div class="hero">
-  <img class="hero-image" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop" alt="">
+  <div class="hero-image hero-glow" aria-hidden="true"></div>
   <!-- EDIT ME: PROFILE PIC — replace with your headshot, keep it square -->
   <a class="avatar-link" href="#bio" aria-label="Read my bio">
     <img class="avatar" src="/images/profile_pic.JPG" alt="Travis Fickett">
@@ -349,11 +363,12 @@
     <h2>Selected work</h2>
     <!-- EDIT ME: CREDITS — add/remove <li> rows as needed, same format -->
     <ul class="plain">
-      <li><span class="label">Castlevania</span><span class="detail">Netflix &mdash; Writer</span></li>
+      <li><span class="label">Magic: The Gathering</span><span class="detail">Netflix &mdash; Writer / Producer</span></li>
       <li><span class="label">12 Monkeys</span><span class="detail">Syfy &mdash; Co-Creator / Showrunner</span></li>
-      <li><span class="label">Star Trek: Picard</span><span class="detail">Paramount+ &mdash; Writer</span></li>
-      <li><span class="label">Magic: The Gathering</span><span class="detail">Netflix &mdash; Writer</span></li>
-      <li><span class="label">MacGyver</span><span class="detail">CBS &mdash; Writer</span></li>
+      <li><span class="label">Star Trek: Picard</span><span class="detail">Paramount+ &mdash; Writer / Producer</span></li>
+      <li><span class="label">MacGyver</span><span class="detail">CBS &mdash; Writer / Producer</span></li>
+      <li><span class="label">Nikita</span><span class="detail">The CW &mdash; Writer / Producer</span></li>
+      <li><span class="label">Terra Nova</span><span class="detail">Fox &mdash; Staff Writer</span></li>
     </ul>
   </section>
 
@@ -362,25 +377,27 @@
     <h2>Ways to work with me</h2>
     <!-- EDIT ME: SERVICES — reword or add lines any time -->
     <ul class="plain">
+      <li><span class="label">Writing &amp; Producing</span><span class="detail">Contact my reps at CAA or Industry Entertainment</span></li>
       <li><span class="label">Consulting</span><span class="detail">Story, structure, room process</span></li>
       <li><span class="label">Development</span><span class="detail">Series bibles, pilots, pitch decks</span></li>
-      <li><span class="label">Ghostwriting</span class= "detail">It's like I wasn't even there...</span></li>
+      <li><span class="label">Ghostwriting</span><span class="detail">Like I was never there&hellip;</span></li>
       <li><span class="label">Teaching</span><span class="detail">Workshops, courses, one-on-one</span></li>
       <li><span class="label">Speaking</span><span class="detail">Panels, keynotes, craft talks</span></li>
     </ul>
+    <p class="services-note">Contact me directly for consulting, development, ghostwriting, teaching, or speaking through the <a href="#contact">contact form</a>.</p>
   </section>
 
-  <section id="links">
+  <!-- HIDDEN FOR NOW: Links section. Remove the comment markers to bring it back. <section id="links">
     <p class="eyebrow">Links</p>
     <h2>Things I've put out lately</h2>
-    <p class="dim">Not a blog &mdash; just a running list. Longer stuff lives on the newsletter.</p>
+    <p class="dim">Not a blog &mdash; just a running list. Longer stuff lives on the newsletter.</p> -->
     <!-- ============================================================
          EDIT ME: THIS IS THE SECTION YOU'LL TOUCH MOST.
          To add something new, copy one whole <li>...</li> block
          and paste it right above this comment, then change the
          date, title, description, and href. Newest goes on top.
          ============================================================ -->
-    <ul class="plain updates">
+    <!-- <ul class="plain updates">
       <li>
         <time>September 2026</time>
         <a class="title" href="#">A short essay on War of the Worlds &rarr;</a>
@@ -390,12 +407,11 @@
         <a class="title" href="#">New short fiction, placed here first. &rarr;</a>
       </li>
     </ul>
-  </section>
+  </section> -->
 
   <section id="bio">
     <p class="eyebrow">Bio</p>
     <h2>In brief</h2>
-  
     <p>Travis Fickett is a writer and showrunner with twenty-five years of experience across television, film, comics, and criticism. He co-created and co-ran <em>12 Monkeys</em> for Syfy, and has written for <em>Star Trek: Picard</em>, <em>Magic: The Gathering</em>, <em>MacGyver</em>, among others. He is represented by CAA and Industry Entertainment.</p>
   </section>
 
@@ -410,7 +426,7 @@
          YOUR_FORM_ID below with the ID they give you. Until you do
          that, this form won't actually send anywhere.
          ============================================================ -->
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <form action="https://formspree.io/f/mzedqkjo" method="POST">
       <label for="name">Name</label>
       <input id="name" name="name" type="text" required>
 
